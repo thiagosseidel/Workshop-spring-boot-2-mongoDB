@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.thiagosseidel.springboot2mongodb.domain.User;
+import com.thiagosseidel.springboot2mongodb.dto.UserDTO;
 import com.thiagosseidel.springboot2mongodb.repository.UserRepository;
 import com.thiagosseidel.springboot2mongodb.servicies.exception.ObjectNotFoundException;
 
@@ -30,5 +31,15 @@ public class UserService {
 		Optional<User> optUser = repo.findById(id); 
 		
 		return optUser.orElseThrow(() -> new ObjectNotFoundException("Object not found."));
+	}
+	
+	public User insert(User obj) {
+		
+		return repo.insert(obj);
+	}
+	
+	public User fromDTO(UserDTO objDto) {
+		
+		return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
 	}
 }
