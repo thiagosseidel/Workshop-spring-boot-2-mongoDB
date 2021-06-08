@@ -32,24 +32,13 @@ public class PostService {
 		return optPost.orElseThrow(() -> new ObjectNotFoundException("Object not found."));
 	}
 	
-	public Post insert(Post obj) {
+	public List<Post> findByTitle(String text) {
 		
-		return repo.insert(obj);
+		return repo.findByTitleContaining(text);
 	}
 	
-	public void delete(String id) {
+	public List<Post> findByTitleIgnoreCase(String text) {
 		
-		findById(id);
-		
-		repo.deleteById(id);
-	}
-	
-	public Post update(Post obj) {
-		
-		Optional<Post> optPost = repo.findById(obj.getId()); 
-		
-		Post newObj = optPost.get();
-		
-		return repo.save(newObj);
+		return repo.findByTitleContainingIgnoreCase(text);
 	}
 }
